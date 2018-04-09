@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.maxi3.dao.XNotificationDao">
+	<resultMap id="XNotificationResultMap" type="com.maxi3.pojo.XNotification">
+		<result column="NOTIF_ID" property="notificationid" jdbcType="INTEGER" />
+		<result column="NOTIF_DATE" property="notificationdate"
+			jdbcType="VARCHAR" />
+		<result column="NOTIF" property="notification" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="XNOTIFICATION_Column_List">
+		NOTIF_ID,NOTIF_DATE,NOTIF
+	</sql>
+
+
+	<select id="selectXNotificationrbyId" resultMap="XNotificationResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="XNOTIFICATION_Column_List" />
+		from xrayscatterteachingdb.`t_notification`
+		where NOTIF_ID = #{notificationid,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectXNotificationbyDate" resultMap="XNotificationResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="XNOTIFICATION_Column_List" />
+		from xrayscatterteachingdb.`t_notification`
+		where NOTIF_DATE =
+		#{notificationdate,jdbcType=DATE}
+	</select>
+
+	<select id="selectallXNotifications" resultMap="XNotificationResultMap"
+		parameterType="java.lang.Integer">
+		select
+		*
+		from xrayscatterteachingdb.`t_notification`
+		order by NOTIF_DATE DESC
+	</select>
+
+	<delete id="deleteXNotificationbyId" parameterType="java.lang.Integer">
+		delete from
+		xrayscatterteachingdb.`t_notification` where
+		NOTIF_ID=#{notificationid,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="insertXNotification">
+		insert xrayscatterteachingdb.`t_notification` (NOTIF_DATE,NOTIF)
+		values(#{notificationdate,jdbcType=VARCHAR},#{notification,jdbcType=VARCHAR})
+	</insert>
+
+
+
+</mapper>
