@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.maxi3.dao.NotesFileDao">
+	<resultMap id="FileresultMap" type="com.maxi3.pojo.NotesFile">
+
+		<result column="FILE_ID" property="notesfileid" jdbcType="INTEGER" />
+		<result column="FILE" property="notesfile" jdbcType="BLOB" />
+		<result column="VERSION" property="notesversion" jdbcType="INTEGER" />
+		<result column="FILE_NAME" property="filename" jdbcType="VARCHAR" />
+
+	</resultMap>
+	<select id="selectNotesFilebyId" parameterType="java.lang.Integer"
+		resultMap="FileresultMap">
+		select * from xrayscatterteachingdb.`t_file` where
+		FILE_ID=#{notesfileid,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectAllNotesFile" resultMap="FileresultMap">
+		select * from xrayscatterteachingdb.`t_file`
+
+	</select>
+
+	<delete id="deleteNotesFile" parameterType="java.lang.Integer">
+		delete from xrayscatterteachingdb.`t_file`
+		where FILE_ID=#{notesfileid,jdbcType=INTEGER}
+	</delete>
+
+	<update id="updateNotesFile">
+		update from xrayscatterteachingdb.`t_file` set
+		FILE=#{notesfile,jdbcType=BLOB},VERSION=VERSION+1
+		where
+		FILE_ID=#{notesfileid,jdbcType=INTEGER} and
+		VERSION =
+		#{notesversion,jdbcType=INTEGER}
+	</update>
+
+
+
+	<insert id="insertNotesFile">
+		insert into xrayscatterteachingdb.`t_file` (FILE,FILE_NAME,VERSION) values
+		(#{notesfile,jdbcType=BLOB},#{filename,jdbcType=VARCHAR},#{notesversion,jdbcType=INTEGER})
+	</insert>
+
+
+</mapper>

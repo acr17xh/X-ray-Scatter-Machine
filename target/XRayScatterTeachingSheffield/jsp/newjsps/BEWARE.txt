@@ -1,0 +1,2 @@
+JSP files here are for the new dashboard bootstrap template.
+Currently they can work.
